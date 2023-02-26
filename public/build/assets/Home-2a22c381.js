@@ -1,1 +1,0 @@
-import{o as n,c as s}from"./app-e4e9da3b.js";const a=(e,o)=>{const t=e.__vccOpts||e;for(const[c,r]of o)t[c]=r;return t},_={};function l(e,o){return n(),s("h1",null,"Hello from inertia")}const m=a(_,[["render",l]]);export{m as default};

@@ -1,0 +1,1 @@
+import{_ as e}from"./_plugin-vue_export-helper-c27b6911.js";import{f as o,o as r}from"./app-106c77a1.js";const t={};function c(n,a){return r(),o("h1",null,"Hello from inertia")}const _=e(t,[["render",c]]);export{_ as default};
