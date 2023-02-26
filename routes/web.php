@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -40,6 +41,12 @@ require __DIR__.'/auth.php';
 Route::get('/auth/TwoFactor', function () {
     return inertia('Auth/TwoFactor');
 })->name('two-factor');
+
 Route::post('/auth/TwoFactor', function () {
     dd("verifying...");
 })->name('two-factor.submit');
+
+Route::controller(GoogleController::class)->group(function(){
+    Route::get('auth/google', 'redirectToGoogle')->name('auth.google');
+    Route::get('auth/google/callback', 'handleGoogleCallback');
+});
