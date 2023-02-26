@@ -36,3 +36,10 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+Route::get('/auth/TwoFactor', function () {
+    return inertia('Auth/TwoFactor');
+})->name('two-factor');
+Route::post('/auth/TwoFactor', function () {
+    dd("verifying...");
+})->name('two-factor.submit');
