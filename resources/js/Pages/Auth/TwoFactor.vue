@@ -49,7 +49,7 @@ onMounted(() => {
 
             <form @submit.prevent="submit">
                 <div>
-                    <InputLabel for="code" value="Code" @click="count++" />{{ count }}
+                    <InputLabel for="code" value="Code" />{{ count }}
 
                     <TextInput
                         id="code"
@@ -70,7 +70,7 @@ onMounted(() => {
                         Didnt receive code? Resend
                     </Link>
 
-                    <PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                    <PrimaryButton @click="count++" class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                         Log in
                     </PrimaryButton>
                 </div>
