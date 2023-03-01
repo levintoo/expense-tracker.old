@@ -3,7 +3,10 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import SecondaryButton from "@/Components/SecondaryButton.vue";
 import DangerButton from "@/Components/DangerButton.vue";
 import Checkbox from "@/Components/Checkbox.vue";
-import {nextTick, ref} from "vue";
+import { ref } from "vue";
+import Modal from '@/Components/Modal.vue';
+import TextInput from "@/Components/TextInput.vue";
+import {usePage} from "@inertiajs/vue3";
 
 const addingNewIncome = ref(false);
 
@@ -12,9 +15,11 @@ const addNewIncome = () => {
 
 };
 
-defineProps({
+const props = defineProps({
     incomes: Array,
 });
+
+const user = usePage().props.auth.user;
 
 const closeModal = () => {
     addingNewIncome.value = false;
@@ -30,7 +35,28 @@ const closeModal = () => {
         <PrimaryButton @click="addNewIncome">Add income</PrimaryButton>
 
         <Modal :show="addingNewIncome" @close="closeModal">
-            <h1>Modal</h1>
+            <div class="p-6">
+                <h2 class="text-lg font-medium text-gray-900">
+                    Add new income
+                </h2>
+                <div>
+
+                    <InputLabel value="Name" />
+
+                    <TextInput
+                        id="name"
+                        type="text"
+                        class="mt-1 block w-full"
+                        required
+                        autofocus
+                        autocomplete="name"
+                    />
+
+                </div>
+                <div class="mt-6 flex justify-end">
+                    <SecondaryButton @click="closeModal"> Cancel </SecondaryButton>
+                </div>
+            </div>
         </Modal>
 
         <label class="sr-only">Search</label>
