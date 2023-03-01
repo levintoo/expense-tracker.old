@@ -2,6 +2,10 @@
 
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Auth\TwoFactorController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ExpensesController;
+use App\Http\Controllers\IncomeController;
+use App\Http\Controllers\MonthlyReportController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -34,18 +38,22 @@ Route::controller(GoogleController::class)->group(function () {
     Route::get('auth/google/callback', 'handleGoogleCallback');
 });
 
+
 Route::middleware('auth')->group(function () {
     Route::get('/auth/TwoFactor', [TwoFactorController::class, 'index'])->name('two.factor');
     Route::post('/auth/TwoFactor', [TwoFactorController::class, 'verifyUser'])->name('two.factor.submit');
 });
 
-Route::middleware(['auth', 'two.factor'])->group(function () {
+Route::middleware(['auth', 'two.factor', 'verified'])->group(function () {
 
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->middleware(['verified'])->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/expenses', [ExpensesController::class, 'index'])->name('expenses');
+    Route::get('/income', [IncomeController::class, 'index'])->name('income');
+    Route::get('/monthly-report', [MonthlyReportController::class, 'index'])->name('monthly.report');
+
 });
