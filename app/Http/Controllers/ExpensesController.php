@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Expense;
 use Illuminate\Http\Request;
 
 class ExpensesController extends Controller
@@ -13,7 +14,9 @@ class ExpensesController extends Controller
      */
     public function index()
     {
-        return inertia('Expenses');
+        $expenses = Expense::all();
+
+        return inertia('Expenses', compact('expenses'));
     }
 
     /**

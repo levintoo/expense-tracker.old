@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Income;
 use Illuminate\Http\Request;
 
 class IncomeController extends Controller
@@ -13,7 +14,8 @@ class IncomeController extends Controller
      */
     public function index()
     {
-        return inertia('Income');
+        $incomes = Income::all();
+        return inertia('Income',compact('incomes'));
     }
 
     /**
