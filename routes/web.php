@@ -53,7 +53,17 @@ Route::middleware(['auth', 'two.factor', 'verified'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/expenses', [ExpensesController::class, 'index'])->name('expenses');
+    Route::get('/expenses/create', [ExpensesController::class, 'create'])->name('expenses.create');
+    Route::post('/expenses/create', [ExpensesController::class, 'store'])->name('expenses.store');
+    Route::get('/expenses/{id}/edit', [ExpensesController::class, 'edit'])->name('expenses.edit');
+    Route::post('/expenses/{id}/update', [ExpensesController::class, 'update'])->name('expenses.update');
+    Route::delete('/expenses/{id}/delete', [ExpensesController::class, 'destroy'])->name('expenses.delete');
     Route::get('/income', [IncomeController::class, 'index'])->name('income');
+    Route::get('/income/create', [IncomeController::class, 'create'])->name('income.create');
+    Route::post('/income/create', [IncomeController::class, 'store'])->name('income.store');
+    Route::get('/income/{id}/edit', [IncomeController::class, 'edit'])->name('income.edit');
+    Route::post('/income/{id}/update', [IncomeController::class, 'update'])->name('income.update');
+    Route::delete('/income/{id}/delete', [IncomeController::class, 'destroy'])->name('income.delete');
     Route::get('/monthly-report', [MonthlyReportController::class, 'index'])->name('monthly.report');
 
 });

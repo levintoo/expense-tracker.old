@@ -1,63 +1,22 @@
 <script setup>
-import PrimaryButton from '@/Components/PrimaryButton.vue';
 import SecondaryButton from "@/Components/SecondaryButton.vue";
 import DangerButton from "@/Components/DangerButton.vue";
 import Checkbox from "@/Components/Checkbox.vue";
-import { ref } from "vue";
-import Modal from '@/Components/Modal.vue';
-import TextInput from "@/Components/TextInput.vue";
-import {usePage} from "@inertiajs/vue3";
-
-const addingNewIncome = ref(false);
-
-const addNewIncome = () => {
-    addingNewIncome.value = true;
-
-};
+import PrimaryLink from "@/Components/PrimaryLink.vue";
 
 const props = defineProps({
     incomes: Array,
 });
 
-const user = usePage().props.auth.user;
-
-const closeModal = () => {
-    addingNewIncome.value = false;
-
-    form.reset();
-};
 </script>
 
 <template>
 
     <div class="flex items-center justify-between py-4 bg-white dark:bg-gray-800">
 
-        <PrimaryButton @click="addNewIncome">Add income</PrimaryButton>
-
-        <Modal :show="addingNewIncome" @close="closeModal">
-            <div class="p-6">
-                <h2 class="text-lg font-medium text-gray-900">
-                    Add new income
-                </h2>
-                <div>
-
-                    <InputLabel value="Name" />
-
-                    <TextInput
-                        id="name"
-                        type="text"
-                        class="mt-1 block w-full"
-                        required
-                        autofocus
-                        autocomplete="name"
-                    />
-
-                </div>
-                <div class="mt-6 flex justify-end">
-                    <SecondaryButton @click="closeModal"> Cancel </SecondaryButton>
-                </div>
-            </div>
-        </Modal>
+    <PrimaryLink :href="route('income.create')">
+        Add Income
+    </PrimaryLink>
 
         <label class="sr-only">Search</label>
         <div class="relative">
@@ -122,7 +81,7 @@ const closeModal = () => {
             </td>
             <td class="px-6 py-4">
                 <SecondaryButton class="m-1">View({{ income.id }})</SecondaryButton>
-                <PrimaryButton class="m-1">Edit({{ income.id }})</PrimaryButton>
+                <PrimaryLink class="m-1" :href="route('income.edit', income.id)">Edit({{ income.id }})</PrimaryLink>
                 <DangerButton class="m-1">Delete me({{ income.id }})</DangerButton>
             </td>
         </tr>

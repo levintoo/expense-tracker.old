@@ -1,5 +1,5 @@
 <script setup>
-import PrimaryButton from '@/Components/PrimaryButton.vue';
+import PrimaryLink from '@/Components/PrimaryLink.vue';
 import SecondaryButton from "@/Components/SecondaryButton.vue";
 import DangerButton from "@/Components/DangerButton.vue";
 import Checkbox from "@/Components/Checkbox.vue";
@@ -14,7 +14,7 @@ defineProps({
 
     <div class="flex items-center justify-between py-4 bg-white dark:bg-gray-800">
 
-        <PrimaryButton>Add expense</PrimaryButton>
+        <PrimaryLink :href="route('expenses.create')">Add expense</PrimaryLink>
 
         <label class="sr-only">Search</label>
         <div class="relative">
@@ -79,7 +79,7 @@ defineProps({
             </td>
             <td class="px-6 py-4">
                 <SecondaryButton class="m-1">View({{ expense.id }})</SecondaryButton>
-                <PrimaryButton class="m-1">Edit({{ expense.id }})</PrimaryButton>
+                <PrimaryLink class="m-1" :href="route('expenses.edit', expense.id)">Edit({{ expense.id }})</PrimaryLink>
                 <DangerButton class="m-1">Delete me({{ expense.id }})</DangerButton>
             </td>
         </tr>
