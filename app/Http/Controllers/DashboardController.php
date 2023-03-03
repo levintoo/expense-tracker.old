@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Expense;
+use App\Models\Income;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -13,7 +16,18 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return inertia('Dashboard');
+        $income = Income::where('user_id', Auth::id())->select('amount')->whereMonth('created_at', now()->month)->get();
+        $expenses = Expense::where('user_id', Auth::id())->select('amount')->whereMonth('created_at', now()->month)->get();
+        $income_sum = $income->sum('amount');
+        $expenses_sum = $expenses->sum('amount');
+        $report = [
+                'income' => $income_sum,
+                'income_count' => $income->count(),
+                'expenses' => $expenses_sum,
+                'expenses_count' => $expenses->count(),
+                'net_earning' => ($income_sum - $expenses_sum),
+        ];
+        return inertia('Dashboard',compact('report'));
     }
 
     /**
