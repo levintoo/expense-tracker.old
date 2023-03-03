@@ -3,10 +3,19 @@ import PrimaryLink from '@/Components/PrimaryLink.vue';
 import SecondaryButton from "@/Components/SecondaryButton.vue";
 import DangerButton from "@/Components/DangerButton.vue";
 import Checkbox from "@/Components/Checkbox.vue";
+import { useForm } from '@inertiajs/inertia-vue3';
 
 defineProps({
     expenses: Array,
 });
+
+const form = useForm();
+
+function destroy(id) {
+    if (confirm("Are you sure you want to Delete")) {
+        form.delete(route('expenses.delete', id));
+    }
+}
 
 </script>
 
@@ -80,7 +89,7 @@ defineProps({
             <td class="px-6 py-4">
                 <SecondaryButton class="m-1">View({{ expense.id }})</SecondaryButton>
                 <PrimaryLink class="m-1" :href="route('expenses.edit', expense.id)">Edit({{ expense.id }})</PrimaryLink>
-                <DangerButton class="m-1">Delete me({{ expense.id }})</DangerButton>
+                <DangerButton class="m-1" @click="destroy(expnese.id)">Delete me({{ expense.id }})</DangerButton>
             </td>
         </tr>
         </tbody>

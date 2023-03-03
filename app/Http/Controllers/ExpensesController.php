@@ -100,13 +100,13 @@ class ExpensesController extends Controller
             'category' => ['required'],
         ])->validate();
 
-        Expense::create([
+        Expense::where('user_id',Auth::id())->find($id)->update([
             'user_id' => Auth::id(),
             'amount' => $request->amount,
             'entry_date' => now(),
             'description' => $request->description,
             'category' => $request->category,
-        ])->where('id',$id);
+        ]);
         return redirect()->route('expenses');
     }
 
@@ -119,6 +119,6 @@ class ExpensesController extends Controller
     public function destroy($id)
     {
         Expense::where('user_id', Auth::id())->find($id)->delete();
-        return redirect()->route('income');
+        return redirect()->route('expenses');
     }
 }

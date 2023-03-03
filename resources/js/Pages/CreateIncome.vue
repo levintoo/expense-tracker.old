@@ -7,13 +7,19 @@ import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
 import {useForm, Head} from "@inertiajs/vue3";
 
-
 const form = useForm({
-    amount: '',
-    entry_date: '',
-    description: '',
-    category: '',
+    amount: Math.floor(Math.random()*10000),
+    entry_date: '12/12/1020',
+    description: ['Paid by Omollo', 'Cookie Business', 'Salary', 'Bank interest'][Math.floor(Math.random() * ['Elephant', 'Lion', 'Zebra', 'Croc'].length)],
+    category: ['home', 'work', 'school', 'gov'][Math.floor(Math.random() * ['Elephant', 'Lion', 'Zebra', 'Croc'].length)],
 });
+
+// const form = useForm({
+//     amount: '',
+//     entry_date: '',
+//     description: '',
+//     category: '',
+// });
 
 const submit = () => {
     form.post(route('income.store'));

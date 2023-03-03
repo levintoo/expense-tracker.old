@@ -99,13 +99,13 @@ class IncomeController extends Controller
             'category' => ['required'],
         ])->validate();
 
-        Income::create([
+        Income::where('user_id',Auth::id())->find($id)->update([
             'user_id' => Auth::id(),
             'amount' => $request->amount,
             'entry_date' => now(),
             'description' => $request->description,
             'category' => $request->category,
-        ])->where('id',$id);
+        ]);
         return redirect()->route('income');
     }
 
