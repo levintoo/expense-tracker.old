@@ -1,7 +1,7 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
-import ExpensesTable from "@/Components/ExpensesTable.vue";
+import CashFlowTable from "@/Components/CashFlowTable.vue";
 
 defineProps({
     expenses: Array,
@@ -21,7 +21,7 @@ defineProps({
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
 
                     <div class="p-6 relative overflow-x-auto shadow-md sm:rounded-lg">
-                        <ExpensesTable :expenses="expenses"/>
+                        <CashFlowTable :data="expenses" postroute="expenses" category="Expenses" />
                     </div>
                 </div>
             </div>

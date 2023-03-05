@@ -1,7 +1,7 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
-import IncomeTable from "@/Components/IncomeTable.vue";
+import CashFlowTable from "@/Components/CashFlowTable.vue";
 
 defineProps({
     incomes: Array,
@@ -23,7 +23,7 @@ defineProps({
 
                     <div class="p-6 relative overflow-x-auto shadow-md sm:rounded-lg">
 
-                       <IncomeTable :incomes="incomes"/>
+                       <CashFlowTable :data="incomes" postroute="income" category="Income" />
 
                       </div>
                 </div>
