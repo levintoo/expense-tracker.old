@@ -27,7 +27,8 @@ class IncomeController extends Controller
      */
     public function create()
     {
-        return inertia('CreateIncome');
+        $categories = config('categories.income');
+        return inertia('CreateIncome', compact('categories'));
     }
 
     /**
@@ -50,7 +51,7 @@ class IncomeController extends Controller
             'amount' => $request->amount,
             'entry_date' => now(),
             'description' => $request->description,
-            'category' => $request->category,
+            'category' => config('categories.income')[$request->category],
         ]);
 
         return redirect()->route('income');

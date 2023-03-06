@@ -5,25 +5,19 @@ import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
 import {useForm} from "@inertiajs/vue3";
+import SelectInput from "@/Components/SelectInput.vue";
 
 const props = defineProps({
-    formdata: Array,
     postroute: String,
+    categories: Array,
 });
 
 const form = useForm({
-    amount: props.formdata.amount,
-    entry_date: props.formdata.entry_date,
-    description: props.formdata.description,
-    category: props.formdata.category,
+    amount: '',
+    entry_date: '',
+    description: '',
+    category: '',
 });
-
-// const form = useForm({
-//     amount: '',
-//     entry_date: '',
-//     description: '',
-//     category: '',
-// });
 
 const submit = () => {
     form.post(route(props.postroute+'.store'));
@@ -90,15 +84,16 @@ const submit = () => {
                             <div class="mt-3">
                                 <InputLabel for="category" >Category</InputLabel>
 
-                                <TextInput
+                                <SelectInput
                                     id="category"
-                                    type="text"
                                     class="mt-2 block w-full"
                                     v-model="form.category"
                                     autofocus
-                                    autocomplete="category"
-                                    placeholder="work"
-                                />
+                                >
+                                    <option value="">Select</option>
+                                    <option v-for="category_option in categories" :value="`${ categories.indexOf(category_option) }`">{{ category_option }}</option>
+                                </SelectInput>
+
 
                                 <InputError class="mt-2" :message="form.errors.category" />
 

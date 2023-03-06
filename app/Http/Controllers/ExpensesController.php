@@ -28,7 +28,8 @@ class ExpensesController extends Controller
      */
     public function create()
     {
-        return inertia('CreateExpense');
+        $categories = config('categories.expenses');
+        return inertia('CreateExpense', compact('categories'));
     }
 
     /**
@@ -51,7 +52,7 @@ class ExpensesController extends Controller
             'amount' => $request->amount,
             'entry_date' => now(),
             'description' => $request->description,
-            'category' => $request->category,
+            'category' => config('categories.income')[$request->category],
         ]);
 
         return redirect()->route('expenses');
