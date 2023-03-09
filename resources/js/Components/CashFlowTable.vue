@@ -4,6 +4,7 @@ import DangerButton from "@/Components/DangerButton.vue";
 import Checkbox from "@/Components/Checkbox.vue";
 import PrimaryLink from "@/Components/PrimaryLink.vue";
 import { useForm } from '@inertiajs/inertia-vue3';
+import Pagination from "@/Components/Pagination.vue";
 
 const props = defineProps({
     data: Array,
@@ -18,6 +19,7 @@ function destroy(id) {
         form.delete(route(props.postroute+'.delete', id));
     }
 }
+
 </script>
 
 <template>
@@ -64,7 +66,7 @@ function destroy(id) {
         </tr>
         </thead>
         <tbody>
-        <tr v-for="datum in data"
+        <tr v-for="datum in data.data"
             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
             <td class="w-4 p-4">
                 <div class="flex items-center">
@@ -74,7 +76,6 @@ function destroy(id) {
             <th scope="row" class=" items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
                 <div class="pl-3">
                     <div class="text-base font-semibold">${{ datum.amount }}</div>
-                    <div class="font-normal text-gray-500">mpesa</div>
                 </div>
             </th>
             <td class="px-6 py-4">
@@ -96,5 +97,6 @@ function destroy(id) {
             </td>
         </tr>
         </tbody>
+        <Pagination class="mt-6" :links="data.links" />
     </table>
 </template>

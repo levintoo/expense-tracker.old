@@ -16,7 +16,7 @@ class ExpensesController extends Controller
      */
     public function index()
     {
-        $expenses = Expense::where('user_id', Auth::id())->get();
+        $expenses = Expense::where('user_id', Auth::id())->paginate(10);
 
         return inertia('Expenses', compact('expenses'));
     }
@@ -52,7 +52,7 @@ class ExpensesController extends Controller
             'amount' => $request->amount,
             'entry_date' => now(),
             'description' => $request->description,
-            'category' => config('categories.income')[$request->category],
+            'category' => config('categories.expenses')[$request->category],
         ]);
 
         return redirect()->route('expenses');

@@ -4,7 +4,6 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
-import {onMounted, ref} from "vue";
 
 const form = useForm({
     code: '',
@@ -16,11 +15,6 @@ const submit = () => {
     });
 };
 
-const count = ref(0);
-
-onMounted(() => {
-    console.log('Hello, are you my family ?');
-})
 </script>
 
 <template>
@@ -49,7 +43,7 @@ onMounted(() => {
 
             <form @submit.prevent="submit">
                 <div>
-                    <InputLabel for="code" value="Code" />{{ count }}
+                    <InputLabel for="code" value="Code" />
 
                     <TextInput
                         id="code"
@@ -70,7 +64,7 @@ onMounted(() => {
                         Didnt receive code? Resend
                     </Link>
 
-                    <PrimaryButton @click="count++" class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                    <PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                         Log in
                     </PrimaryButton>
                 </div>
