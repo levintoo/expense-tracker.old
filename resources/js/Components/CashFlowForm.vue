@@ -8,7 +8,7 @@ import {useForm} from "@inertiajs/vue3";
 import SelectInput from "@/Components/SelectInput.vue";
 
 const props = defineProps({
-    postroute: String,
+    postRoute: String,
     categories: Array,
 });
 
@@ -20,7 +20,7 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.post(route(props.postroute+'.store'));
+    form.post(route(props.postRoute+'.store'));
 };
 </script>
 
@@ -30,7 +30,7 @@ const submit = () => {
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">
 
-                        <SecondaryLink :href="route(props.postroute)" >Back</SecondaryLink>
+                        <SecondaryLink :href="route(props.postRoute)" >Back</SecondaryLink>
 
                         <form  @submit.prevent="submit" class="mt-4">
                             <div class="mt-3">
@@ -38,7 +38,7 @@ const submit = () => {
 
                                 <TextInput
                                     id="amount"
-                                    type="text"
+                                    type="number"
                                     class="mt-2 block w-full"
                                     v-model="form.amount"
                                     autofocus
@@ -54,7 +54,7 @@ const submit = () => {
 
                                 <TextInput
                                     id="entry_date"
-                                    type="text"
+                                    type="date"
                                     class="mt-2 block w-full"
                                     v-model="form.entry_date"
                                     autofocus
