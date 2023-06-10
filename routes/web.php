@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\GoogleController;
-use App\Http\Controllers\Auth\TwoFactorController;
+use App\Http\Controllers\CashFlowController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExpensesController;
 use App\Http\Controllers\IncomeController;
@@ -62,4 +62,5 @@ Route::middleware(['auth','verified'])->group(function () {
 
     Route::get('/monthly-report', [MonthlyReportController::class, 'index'])->name('monthly.report');
 
+    Route::get('/cashflow',[CashFlowController::class,'index'])->name('cashflow');
 });
