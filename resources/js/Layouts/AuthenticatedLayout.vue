@@ -6,6 +6,7 @@ import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/vue3';
+import Banner from "@/Components/Banner.vue";
 
 
 const showingNavigationDropdown = ref(false);
@@ -13,6 +14,8 @@ const showingNavigationDropdown = ref(false);
 
 <template>
     <div>
+        <Banner />
+
         <div class="min-h-screen bg-gray-100">
             <nav class="bg-white border-b border-gray-100">
                 <!-- Primary Navigation Menu -->
@@ -38,6 +41,9 @@ const showingNavigationDropdown = ref(false);
                                 </NavLink>
                                 <NavLink :href="route('expenses')" :active="route().current('expenses')">
                                     Expenses
+                                </NavLink>
+                                <NavLink :href="route('cashflow')" :active="route().current('cashflow')">
+                                    Cash Flow
                                 </NavLink>
                                 <NavLink :href="route('monthly.report')" :active="route().current('monthly.report')">
                                     Monthly Report
