@@ -16,9 +16,37 @@ class ExpensesController extends Controller
      */
     public function index()
     {
-        $expenses = Expense::where('user_id', Auth::id())->paginate(10);
+        request()->validate([
+            'direction' => 'in:desc,asc',
+            'field' => 'in:amount,description,category,entry_date',
+        ]);
 
-        return inertia('Expenses', compact('expenses'));
+        $query = Expense::query();
+        $query->where('user_id', Auth::id());
+
+        if(request('search'))
+        {
+            $query->where(function ($query) {
+                $query->where('Amount','LIKE','%'.request('search').'%')
+                    ->orwhere('description','LIKE','%'.request('search').'%')
+                    ->orwhere('category','LIKE','%'.request('search').'%');
+            });
+        }
+
+        if (request('field'))
+        {
+            $query->orderBy(request('field'),request('direction'));
+        }
+
+        $expenses = $query->paginate(5)->withQueryString();
+
+        $filters = request()->all([
+            'field',
+            'search',
+            'direction'
+        ]);
+
+        return inertia('Expenses', compact('expenses','filters'));
     }
 
     /**

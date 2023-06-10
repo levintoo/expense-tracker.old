@@ -16,8 +16,37 @@ class IncomeController extends Controller
      */
     public function index()
     {
-        $incomes = Income::where('user_id', Auth::id())->paginate(10);
-        return inertia('Income',compact('incomes'));
+        request()->validate([
+            'direction' => 'in:desc,asc',
+            'field' => 'in:amount,description,category,entry_date',
+        ]);
+
+        $query = Income::query();
+        $query->where('user_id', Auth::id());
+
+        if(request('search'))
+        {
+            $query->where(function ($query) {
+                $query->where('Amount','LIKE','%'.request('search').'%')
+                    ->orwhere('description','LIKE','%'.request('search').'%')
+                    ->orwhere('category','LIKE','%'.request('search').'%');
+            });
+        }
+
+        if (request('field'))
+        {
+            $query->orderBy(request('field'),request('direction'));
+        }
+
+        $incomes = $query->paginate(5)->withQueryString();
+
+        $filters = request()->all([
+            'field',
+            'search',
+            'direction'
+        ]);
+
+        return inertia('Income',compact('incomes','filters'));
     }
 
     /**
@@ -27,6 +56,7 @@ class IncomeController extends Controller
      */
     public function create()
     {
+
         $categories = config('categories.income');
         return inertia('CreateIncome', compact('categories'));
     }
@@ -118,7 +148,7 @@ class IncomeController extends Controller
      */
     public function destroy($id)
     {
-        Income::where('user_id', Auth::id())->find($id)->delete();
+        Income::where('user_id', Auth::id())->findorfail($id)->delete();
         return redirect()->route('income');
     }
 }

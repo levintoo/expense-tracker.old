@@ -4,7 +4,8 @@ import { Head } from '@inertiajs/vue3';
 import CashFlowTable from "@/Components/CashFlowTable.vue";
 
 defineProps({
-    expenses: Array,
+    expenses: Object,
+    filters: Object,
 });
 </script>
 
@@ -21,7 +22,7 @@ defineProps({
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
 
                     <div class="p-6 relative overflow-x-auto shadow-md sm:rounded-lg">
-                        <CashFlowTable :data="expenses" postroute="expenses" category="Expenses" />
+                        <CashFlowTable :data="expenses" :filters="filters" postRoute="expenses" category="Expenses" />
                     </div>
                 </div>
             </div>
