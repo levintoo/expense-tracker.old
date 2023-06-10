@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Income;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -22,6 +23,7 @@ class IncomeController extends Controller
         ]);
 
         $query = Income::query();
+
         $query->where('user_id', Auth::id());
 
         if(request('search'))
@@ -38,7 +40,7 @@ class IncomeController extends Controller
             $query->orderBy(request('field'),request('direction'));
         }
 
-        $incomes = $query->paginate(5)->withQueryString();
+        $incomes = $query->orderBy('entry_date','DESC')->paginate(5)->withQueryString();
 
         $filters = request()->all([
             'field',
@@ -69,8 +71,8 @@ class IncomeController extends Controller
      */
     public function store(Request $request)
     {
-        Validator::make($request->all(), [
-            'amount' => ['required'],
+        $validated = Validator::make($request->all(), [
+            'amount' => ['required','numeric'],
             'entry_date' => ['required'],
             'description' => ['required'],
             'category' => ['required'],
@@ -78,10 +80,10 @@ class IncomeController extends Controller
 
         Income::create([
             'user_id' => Auth::id(),
-            'amount' => $request->amount,
-            'entry_date' => now(),
-            'description' => $request->description,
-            'category' => config('categories.income')[$request->category],
+            'amount' => $validated['amount'],
+            'entry_date' => Carbon::make($validated['entry_date'])->toDateString(),
+            'description' => $validated['description'],
+            'category' => config('categories.income')[$validated['category']],
         ]);
 
         return redirect()->route('income');

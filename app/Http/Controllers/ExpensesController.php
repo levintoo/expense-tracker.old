@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Expense;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -38,7 +39,7 @@ class ExpensesController extends Controller
             $query->orderBy(request('field'),request('direction'));
         }
 
-        $expenses = $query->paginate(5)->withQueryString();
+        $expenses = $query->orderBy('entry_date','DESC')->paginate(5)->withQueryString();
 
         $filters = request()->all([
             'field',
@@ -68,8 +69,8 @@ class ExpensesController extends Controller
      */
     public function store(Request $request)
     {
-        Validator::make($request->all(), [
-            'amount' => ['required'],
+        $validated = Validator::make($request->all(), [
+            'amount' => ['required','numeric'],
             'entry_date' => ['required'],
             'description' => ['required'],
             'category' => ['required'],
@@ -77,10 +78,10 @@ class ExpensesController extends Controller
 
         Expense::create([
             'user_id' => Auth::id(),
-            'amount' => $request->amount,
-            'entry_date' => now(),
-            'description' => $request->description,
-            'category' => config('categories.expenses')[$request->category],
+            'amount' => $validated['amount'],
+            'entry_date' => Carbon::make($validated['entry_date'])->toDateString(),
+            'description' => $validated['description'],
+            'category' => config('categories.income')[$validated['category']],
         ]);
 
         return redirect()->route('expenses');
