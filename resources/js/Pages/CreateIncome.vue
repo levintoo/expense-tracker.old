@@ -1,7 +1,7 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import {Head} from "@inertiajs/vue3";
-import CreateCashFlowForm from "@/Components/CreateCashFlowForm.vue";
+import CreateCashFlowForm from "@/Components/CashFlowForm.vue";
 
 defineProps({
    categories: Array,
@@ -16,7 +16,7 @@ defineProps({
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">Add New Income</h2>
         </template>
 
-        <CreateCashFlowForm postroute="income" :categories="categories"/>
+        <CreateCashFlowForm postRoute="income" :categories="categories"/>
 
     </AuthenticatedLayout>
 </template>

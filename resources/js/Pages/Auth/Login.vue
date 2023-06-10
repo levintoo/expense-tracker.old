@@ -6,6 +6,7 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
+import SecondaryButton from "@/Components/SecondaryButton.vue";
 
 defineProps({
     canResetPassword: Boolean,
@@ -81,15 +82,18 @@ const submit = () => {
                     Forgot your password?
                 </Link>
 
+                <a :href="route('auth.google')" class="ml-4">
+                    <SecondaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                        use Google
+                    </SecondaryButton>
+                </a>
+
                 <PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                     Log in
                 </PrimaryButton>
+
             </div>
-                <div class="flex items-center justify-end mt-4 align-middle">
-                    <a :href="route('auth.google')">
-                        <img src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png" style="margin-left: 3em;">
-                    </a>
-                </div>
+
         </form>
     </GuestLayout>
 </template>
