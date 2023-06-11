@@ -1,9 +1,10 @@
 <?php
 
 use App\Http\Controllers\Auth\GoogleController;
-use App\Http\Controllers\CashFlowController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ExpensesCategoryController;
 use App\Http\Controllers\ExpensesController;
+use App\Http\Controllers\IncomeCategoryController;
 use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\MonthlyReportController;
 use App\Http\Controllers\ProfileController;
@@ -60,7 +61,19 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::post('/income/{id}/update', [IncomeController::class, 'update'])->name('income.update');
     Route::delete('/income/{id}/delete', [IncomeController::class, 'destroy'])->name('income.delete');
 
-    Route::get('/monthly-report', [MonthlyReportController::class, 'index'])->name('monthly.report');
+    Route::get('/income-category', [IncomeCategoryController::class, 'index'])->name('income.category');
+    Route::get('/income-category/create', [IncomeCategoryController::class, 'create'])->name('income.category.create');
+    Route::post('/income-category/create', [IncomeCategoryController::class, 'store'])->name('income.category.store');
+    Route::get('/income-category/{id}/edit', [IncomeCategoryController::class, 'edit'])->name('income.category.edit');
+    Route::post('/income-category/{id}/update', [IncomeCategoryController::class, 'update'])->name('income.category.category.update');
+    Route::delete('/income-category/{id}/delete', [IncomeCategoryController::class, 'destroy'])->name('income.category.delete');
 
-    Route::get('/cashflow',[CashFlowController::class,'index'])->name('cashflow');
+    Route::get('/expenses-category', [ExpensesCategoryController::class, 'index'])->name('expenses.category');
+    Route::get('/expenses-category/create', [ExpensesCategoryController::class, 'create'])->name('expenses.category.create');
+    Route::post('/expenses-category/create', [ExpensesCategoryController::class, 'store'])->name('expenses.category.store');
+    Route::get('/expenses-category/{id}/edit', [ExpensesCategoryController::class, 'edit'])->name('expenses.category.edit');
+    Route::post('/expenses-category/{id}/update', [ExpensesCategoryController::class, 'update'])->name('expenses.category.category.update');
+    Route::delete('/expenses-category/{id}/delete', [ExpensesCategoryController::class, 'destroy'])->name('expenses.category.delete');
+
+    Route::get('/monthly-report', [MonthlyReportController::class, 'index'])->name('monthly.report');
 });
