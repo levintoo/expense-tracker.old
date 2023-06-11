@@ -42,8 +42,11 @@ const showingNavigationDropdown = ref(false);
                                 <NavLink :href="route('expenses')" :active="route().current('expenses')">
                                     Expenses
                                 </NavLink>
-                                <NavLink :href="route('cashflow')" :active="route().current('cashflow')">
-                                    Cash Flow
+                                <NavLink :href="route('income.category')" :active="route().current('income.category')">
+                                    Income Categories
+                                </NavLink>
+                                <NavLink :href="route('expenses.category')" :active="route().current('expenses.category')">
+                                    Expenses Categories
                                 </NavLink>
                                 <NavLink :href="route('monthly.report')" :active="route().current('monthly.report')">
                                     Monthly Report
